@@ -106,7 +106,3 @@ Chatify lets you connect with friends, send and accept friend requests, chat in 
 - [React Query](https://tanstack.com/query/latest)
 
 ---
-
-## 📝 License
-
-MIT
