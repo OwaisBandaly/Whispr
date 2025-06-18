@@ -3,9 +3,11 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllRequests } from "../lib/api";
 import { Bell , Dot, UserPlus, UserCheck } from "lucide-react";
 import { timeAgo } from "../utils/timeAgo";
+import useThemeStore from "../store/useThemeStore";
 
 const Notifications = () => {
-  const queryClient = useQueryClient();
+  const {theme} = useThemeStore();
+
   const { data: allRequest = {}, isLoading } = useQuery({
     queryKey: ["allRequests"],
     queryFn: getAllRequests,
@@ -48,11 +50,13 @@ const Notifications = () => {
   
 
   return (
-    <div className="max-w-[57rem] ml-30 p-6 min-h-screen">
+    <div className={`max-w-[57rem] ml-30 p-6 min-h-screen
+      ${theme === "sunset" ? "text-violet-50/90": "text-[#0f0c29]"}
+    `}>
       <div className="flex items-center">
         <div className="flex-1 justify-between mb-6">
           <h1 className="text-3xl w-fit font-bold">Notifications</h1>
-          <p className="w-fit mt-0.5 text-base-content/80 text-md">Stay updated with your latest activities</p>
+          <p className="w-fit mt-0.5 text-base-content text-md">Stay updated with your latest activities</p>
         </div>
         {ifUnread && (
           <button
@@ -75,7 +79,7 @@ const Notifications = () => {
             <span className="loading loading-spinner loading-lg text-success"></span>
           </div>
         ) : filteredActivities.length === 0 ? (
-          <div className="text-center text-base-content/70 py-8">No notifications.</div>
+          <div className="text-center text-base-content/90 py-8">No notifications.</div>
         ) : (
           <ul className="flex flex-col gap-4">
             {filteredActivities.map((req) => (
@@ -116,11 +120,11 @@ const Notifications = () => {
                       <span className="font-bold">{req.recipient?.fullName || req.recipient?.username}</span>
                     </span>
                   ) : (
-                    <span>
-                      <span className="font-bold">{req.recipient?.fullName || req.recipient?.username}</span> accepted your friend request
+                    <span className="text-base">
+                      <span className={`font-bold ${theme === "sunset" ? "text-violet-50/90": "text-[#0f0c29]"}`}>{req.recipient?.fullName || req.recipient?.username}</span> accepted your friend request
                     </span>
                   )}
-                  <div className="text-xs mt-0.5 text-base-content/60">{timeAgo(req.activityDate)}</div>
+                  <div className="text-xs mt-0.5 text-base-content/90">{timeAgo(req.activityDate)}</div>
                 </div>
                 {/* Dot for unread */}
                 {!readIds.includes(req._id) && (

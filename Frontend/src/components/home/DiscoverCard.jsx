@@ -38,11 +38,11 @@ const DiscoverCard = ({
       </div>
 
       <div className="flex-1">
-        <h1 className="font-semibold  text-[1.1rem]">
+        <h1 className="font-medium text-[1.1rem]">
           {person.fullName}
         </h1>
         {person.location && (
-          <div className="flex items-center gap-1 text-base-content/60 text-sm">
+          <div className="flex items-center gap-1 text-base-content/85 text-sm">
             {person.age ? `${person.age} yrs` : ""}
             {person.age && person.location && " • "}
             {person.location}
@@ -64,18 +64,18 @@ const DiscoverCard = ({
         </button>
       ) : (
         <button
-          className="btn btn-md bg-[#302b63] text-violet-50 flex items-center gap-1"
+          className={`btn btn-md bg-[#302b63] font-normal text-violet-50 flex items-center gap-1`}
           onClick={onSendRequest}
           disabled={loading || isRequested}
         >
           {isRequested ? (
             <>
-              <Check className="w-4 h-4" />
-              Requested
+              <Check className={`w-4 h-4 ${theme === "sunset" ? "text-violet-50" : "text-[#0f0c29]"}`} />
+              <span className={`${theme === "sunset" ? "text-violet-50" : "text-[#0f0c29]"}`}>Requested</span>
             </>
           ) : loading ? (
             <span className="loading loading-spinner loading-md" />
-          ) : (
+          ) : ( 
             <>
               <UserPlus className="w-4 h-4" />
               Add

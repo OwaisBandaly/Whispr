@@ -32,7 +32,7 @@ const RecentActivity = ({ allRequest, pendingRequestLoading }) => {
     <div className={`bg-base-200 rounded-xl max-h-[20rem] overflow-y-scroll p-4 border border-neutral-800 shadow flex flex-col custom-scrollbar
     ${theme === "sunset" ? "text-violet-50/95": "text-[#0f0c29]"}
     `}>
-      <h2 className="font-bold text-lg mb-4">
+      <h2 className="font-medium text-lg mb-4">
         Recent Activity
       </h2>
       <ul className="flex flex-col gap-2">
@@ -41,7 +41,7 @@ const RecentActivity = ({ allRequest, pendingRequestLoading }) => {
             <span className="loading loading-spinner loading-md text-success"></span>
           </li>
         ) : filteredActivities.length === 0 ? (
-          <li className="text-base-content/70 text-center py-4">
+          <li className="text-base-content/90 text-center py-4">
             No recent activity.
           </li>
         ) : (
@@ -66,20 +66,20 @@ const RecentActivity = ({ allRequest, pendingRequestLoading }) => {
               <div className="flex flex-col items-start">
                 {req.activityType === "received"  ? (
                   <p>
-                    <span className="font-bold">
+                    <span className="">
                       {req.sender?.fullName || req.sender?.username}
                     </span>{" "}
-                    sent you a friend request
+                    <span className="font-light">sent you a friend request</span>
                   </p>
                 ) : (
                   <p>
-                    <span className="font-bold">
+                    <span className="">
                       {req.recipient?.fullName || req.recipient?.username}
                     </span>{" "}
-                    accepted your request
+                    <span className="font-light text-base-content/95">accepted your request</span>
                   </p>
                 )}
-                <span className="text-base-content/60">
+                <span className="text-base-content/90">
                   {timeAgo(req.activityDate)}
                 </span>
               </div>

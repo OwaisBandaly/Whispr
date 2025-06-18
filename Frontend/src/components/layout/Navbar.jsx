@@ -38,7 +38,7 @@ const navigate = useNavigate();
         <input
           type="text"
           placeholder="Search…"
-          className="border-1 rounded-xl hidden sm:block px-1 pl-4 focus:outline-none text-sm py-0.5 ml-10 bg-base-200 border-neutral-700 text-base-content md:w-sm"
+          className="border-1 rounded-xl hidden sm:block px-1 pl-4 focus:outline-none text-sm py-2 ml-10 bg-base-200 border-neutral-700 text-base-content md:w-sm"
         />
       </div>
       {/* Right side icons */}

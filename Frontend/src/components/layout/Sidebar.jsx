@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   const {theme} = useThemeStore()
   const isActive = (path) =>
-    location.pathname === path ? "btn-active bg-base-content/7" : "";
+    location.pathname === path ? `${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"} btn-active bg-base-content/10` : "";
 
   return (
     <>
@@ -36,7 +36,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         className={`flex flex-col justify-between fixed z-50 top-0 left-0 h-screen w-64 bg-base-200 border-r-2 border-neutral-800 shadow-lg transition-transform duration-300 md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"
-          } md:static`}
+          } md:static ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"}`}
       >
         {/* Top: Logo and Nav */}
         <div>
@@ -102,7 +102,7 @@ const Sidebar = () => {
               </span>
             </div>
             <div className="flex flex-col">
-              <div className="font-semibold text-base-content text-sm md:text-base">
+              <div className="font-semibold text-sm md:text-base">
                 {userData?.fullName}
               </div>
               <div className="text-xs text-green-500 flex items-center gap-1 md:text-sm">
