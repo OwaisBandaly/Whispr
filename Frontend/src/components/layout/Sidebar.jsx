@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Home, Users, Bell, Circle, MessageCircle, Menu } from "lucide-react";
+import { Home, Users, Circle, MessageCircle, Menu, MessageCircleMore, AudioWaveform } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import useAuthUser from "../../hooks/useAuthUser";
 import useThemeStore from "../../store/useThemeStore";
@@ -21,7 +21,7 @@ const Sidebar = () => {
           className="btn btn-square btn-md"
           onClick={() => setOpen(!open)}
         >
-          <Menu className="w-5 h-5 bg-transparent" />
+          <AudioWaveform className={`rotate-90 w-6 h-6 ${theme === "sunset" ? "text-violet-50/90": "text-[#0f0c29]"}`} />
         </button>
       </div>
 
@@ -41,10 +41,10 @@ const Sidebar = () => {
         {/* Top: Logo and Nav */}
         <div>
           {/* Logo */}
-          <div className={`flex items-center h-16 border-b ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"} border-neutral-800 gap-1 px-4`}>
-            <MessageCircle className="w-7 h-7" />
-            <span className={`text-2xl font-bold italic tracking-wider`}>
-              Chatify
+          <div className={`flex items-center h-14 border-b ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"} border-neutral-800 gap-1 px-4`}>
+            <AudioWaveform />
+            <span className={`md:text-2xl text-xl font-semibold italic`}>
+              Whispr.
             </span>
           </div>
 
@@ -71,14 +71,14 @@ const Sidebar = () => {
               <span className="">Friends</span>
             </Link>
             <Link
-              to="/notifications"
+              to="/chat"
               onClick={() => setOpen(false)}
               className={`btn btn-ghost justify-start gap-3 text-base-content hover:bg-base-content/7 mx-2 ${isActive(
-                "/notifications"
+                "/chat"
               )}`}
             >
-              <Bell className="w-6 h-6" />
-              <span className="">Notifications</span>
+              <MessageCircleMore className="w-6 h-6" />
+              <span className="">Chats</span>
             </Link>
           </nav>
         </div>

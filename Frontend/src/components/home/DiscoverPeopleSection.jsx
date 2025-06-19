@@ -40,7 +40,7 @@ const DiscoverPeopleSection = ({
     ) : (
       <>
         {(search ? searchUsers : suggestFriendsData).length === 0 ? (
-          <div className="text-center text-base-content/70 py-8">
+          <div className="text-center text-base-content/90 py-8">
             No {search ? "users found." : "suggested friends found."}
           </div>
         ) : (

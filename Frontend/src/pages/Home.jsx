@@ -101,7 +101,7 @@ const Home = () => {
       {/* Welcome Heading */}
       <Welcome userData={userData} friends={friends} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Discover People */}
         <DiscoverPeopleSection
           search={search}
