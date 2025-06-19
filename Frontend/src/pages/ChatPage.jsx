@@ -9,7 +9,6 @@ import {
   Chat,
   MessageInput,
   MessageList,
-  Thread,
   Window,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
@@ -23,15 +22,13 @@ const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 export const ChatPage = () => {
   const { id: targetUserId } = useParams();
   const { userData } = useAuthUser();
-
-  const {theme} = useThemeStore();
-  console.log("THEME", theme);
-  
+  const { theme } = useThemeStore();
 
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [talkedUsers, setTalkedUsers] = useState([]);
+  const [showSidebar, setShowSidebar] = useState(true); // for mobile
 
   const { data: tokenData, isLoading: tokenLoading } = useQuery({
     queryKey: ["streamToken"],
@@ -46,7 +43,7 @@ export const ChatPage = () => {
       (data[0]?.freinds || []).filter((f) => f.status === "accepted"),
   });
 
-  // 🔁 Initialize Stream Chat
+  // Initialize Stream Chat
   useEffect(() => {
     const initChat = async () => {
       if (!tokenData?.token || !userData?._id) return;
@@ -83,7 +80,7 @@ export const ChatPage = () => {
     initChat();
   }, [tokenData?.token, userData?._id, targetUserId]);
 
-  // 🗨️ Fetch recent conversations
+  // Fetch recent conversations
   useEffect(() => {
     const fetchConversations = async () => {
       if (!chatClient || !userData?._id) return;
@@ -109,6 +106,7 @@ export const ChatPage = () => {
               ch.state.messages[ch.state.messages.length - 1] || null;
 
             return {
+              myId: userData?._id,
               user: other,
               lastMessage: lastMsg?.text || "(No messages)",
               unreadMessage: ch.countUnread(),
@@ -126,56 +124,87 @@ export const ChatPage = () => {
     fetchConversations();
   }, [chatClient, userData]);
 
-  // 🐛 Debug logs
-  console.log("tokenLoading:", tokenLoading);
-  console.log("friendsLoading:", friendsLoading);
-  console.log("loadingChannel:", loading);
-  console.log("chatClient:", chatClient);
-  console.log("channel:", channel);
-  console.log("userData:", userData);
-  console.log("targetUserId:", targetUserId);
+  // Handle sidebar visibility on mobile
+  useEffect(() => {
+    // On mobile, hide sidebar when a chat is open
+    if (window.innerWidth < 768) {
+      setShowSidebar(!targetUserId);
+    }
+  }, [targetUserId]);
 
-  // 🔃 Global loading state
+  // Loading state
   if (tokenLoading || loading || !chatClient) {
     return (
-      <div className="flex items-center justify-center h-screen w-full">
+      <div className="flex items-center justify-center h-screen w-screen">
         <span className="loading loading-spinner" />
       </div>
     );
   }
 
-  // ✅ UI Render
+  // Responsive layout
   return (
-    <div className="min-h-screen w-full flex justify-between">
-      <SidebarFriends friends={friends} talkedUser={talkedUsers} />
-      {/* <Navbar /> */}
-
-      <main className="flex-1 flex items-center justify-center bg-base-200">
-        {targetUserId && channel ? (
-          <Chat client={chatClient} theme={`${theme === "sunset" ? "str-chat__theme-dark" : "str-chat__theme-light"}`}>
-            <Channel channel={channel}>
-              <Window>
-                <ChannelHeader />
-                <MessageList />
-                <MessageInput focus />
-              </Window>
-            </Channel>
-          </Chat>
-        ) : (
-          <div className="flex flex-col scale-120 items-center justify-center w-full h-full">
-            <MessageSquare className="w-12 h-12 text-base-content/80 mb-2" />
-            <h2 className="text-2xl font-bold mb-2 text-base-content/80">
-              Welcome to Chat
-            </h2>
-            <p className="text-base-content/60 text-center max-w-md">
-              Select a friend from the sidebar to start a conversation. <br />
-              All your accepted friends will appear here.
-            </p>
-          </div>
-        )}
-      </main>
+  <div className="flex flex-1 flex-col md:flex-row h-full w-screen overflow-hidden">
+    {/* Sidebar */}
+    <div
+      className={`
+        ${targetUserId ? "hidden" : "block"} 
+        md:block 
+        w-full md:w-80 
+        h-full 
+        bg-base-300
+        border-r border-base-content/10
+      `}
+    >
+      <SidebarFriends
+        friends={friends}
+        talkedUser={talkedUsers}
+        onSelectFriend={() => setShowSidebar(false)}
+      />
     </div>
-  );
+
+    {/* Chat or Welcome area */}
+    <main
+      className={`
+        flex-1 h-full 
+        ${targetUserId ? "block" : "hidden"} 
+        md:block 
+        bg-base-200 
+        flex items-center justify-center
+      `}
+    >
+      {targetUserId && channel ? (
+        <Chat
+          client={chatClient}
+          theme={`${
+            theme === "sunset"
+              ? "str-chat__theme-dark"
+              : "str-chat__theme-light"
+          }`}
+        >
+          <Channel channel={channel}>
+            <Window>
+              <ChannelHeader />
+              <MessageList />
+              <MessageInput focus />
+            </Window>
+          </Channel>
+        </Chat>
+      ) : (
+        <div className="flex flex-col items-center justify-center w-full h-full">
+          <MessageSquare className="w-12 h-12 text-base-content/80 mb-2" />
+          <h2 className="text-2xl font-bold mb-2 text-base-content/80">
+            Welcome to Chat
+          </h2>
+          <p className="text-base-content/60 text-center max-w-md">
+            Select a friend from the sidebar to start a conversation. <br />
+            All your accepted friends will appear here.
+          </p>
+        </div>
+      )}
+    </main>
+  </div>
+);
+
 };
 
 export default ChatPage;

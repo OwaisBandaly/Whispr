@@ -5,6 +5,7 @@
   themes: all
 }
 
+
 @theme {
   --font-montserrat: "Montserrat", sans-serif;
   --font-poppins: "Poppins", sans-serif;
@@ -29,7 +30,9 @@
   background: #23272e3f;
 }
 
-/* chat page */
+*{
+  box-sizing: border-box;
+}
 
 html,
 body,
@@ -87,7 +90,7 @@ body,
   }
 
   .str-chat__channel {
-    width: 75vw;
+    width: 100%;
   }
   .str-chat__main-panel {
     min-width: 0;
@@ -126,9 +129,7 @@ body,
       background: transparent;
 
       &:hover {
-        svg path {
-          fill: #2563eb; /* blue-600 */
-        }
+        display: none;
       }
     }
   }

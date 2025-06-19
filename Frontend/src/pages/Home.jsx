@@ -97,7 +97,7 @@ const Home = () => {
   ];
 
   return (
-    <div className={`w-full mx-auto px-2 ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"} sm:px-4 py-4`}>
+    <div className={`mx-auto px-2 ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"} sm:px-4 py-4`}>
       {/* Welcome Heading */}
       <Welcome userData={userData} friends={friends} />
 
