@@ -1,3 +1,4 @@
+import useAuthUser from "../../hooks/useAuthUser";
 import DiscoverCard from "./DiscoverCard";
 import { UserPlus } from "lucide-react";
 
@@ -15,6 +16,11 @@ const DiscoverPeopleSection = ({
   pendingRequestId,
   acceptRequestMutate,
 }) => {
+
+  const {userData} = useAuthUser();
+   const notAcceptedFriends = searchUsers.filter((user) => {
+    return !user?.freinds.includes(userData?._id);
+  })
 
   return (
     <div className={`custom-scrollbar md:col-span-2 bg-base-200 max-h-[30rem] overflow-y-scroll md:overflow-y-auto rounded-xl p-4 border border-neutral-800 shadow flex flex-col`}>
@@ -39,13 +45,13 @@ const DiscoverPeopleSection = ({
       </div>
     ) : (
       <>
-        {(search ? searchUsers : suggestFriendsData).length === 0 ? (
+        {(search ? notAcceptedFriends : suggestFriendsData).length === 0 ? (
           <div className="text-center text-base-content/90 py-8">
             No {search ? "users found." : "suggested friends found."}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-            {(search ? searchUsers : suggestFriendsData).map((person) => {
+            {(search ? notAcceptedFriends : suggestFriendsData).map((person) => {
               const incomingRequest = (
                 allRequest.notAcceptedRequest || []
               ).find(

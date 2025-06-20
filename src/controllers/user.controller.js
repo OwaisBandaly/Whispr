@@ -19,7 +19,6 @@ export const searchUsers = async (req, res) => {
         $or: [
           { username: { $regex: query, $options: "i" } },
           { fullName: { $regex: query, $options: "i" } },
-          { location: { $regex: query, $options: "i" } },
         ],
       };
     }
@@ -33,7 +32,6 @@ export const searchUsers = async (req, res) => {
 
     const filteredUsers = findUser.filter(
       (user) =>
-        !user.freinds.includes(req.user._id) &&
         user._id.toString() !== req.user._id.toString()
     );
 
