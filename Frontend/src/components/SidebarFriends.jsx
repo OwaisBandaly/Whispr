@@ -9,6 +9,8 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
   const {userData} = useAuthUser();
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const { data: friends = [], isLoading } = useQuery({
     queryKey: ["myFriends"],
@@ -33,8 +35,6 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
   }, [search])
 
   const showRecent = debouncedSearch.trim() === "";
-  console.log("SEARCH USER", searchUsers)
-
   const acceptedFriends = searchUsers.filter((user) => {
     console.log("USER:", user);
     return Array.isArray(user?.freinds) && user?.freinds.includes(userData?._id);
@@ -93,11 +93,20 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
                           onSelectFriend();
                       }}
                     >
+                      <div className="relative w-10 h-10 rounded-full">
+                        {!imgLoaded && !imgError && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-base-content/10 rounded-full">
+                            <span className="loading loading-ring loading-xl w-4 h-4"></span>
+                          </div>
+                        )}
                       <img
-                        src={user.image || "/default-avatar.png"}
+                        src={!imgError ? user.image : userPng}
                         alt={user.name || user.name}
                         className="w-10 h-10 rounded-full object-cover border border-base-content/10"
-                      />
+                        onLoad={() => setImgLoaded(true)}
+                        onError={() => setImgError(true)}
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-base-content truncate">
                           {user.name || user.name}
@@ -154,11 +163,20 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
                             onSelectFriend();
                         }}
                       >
+                        <div className="relative w-10 h-10 rounded-full">
+                          {!imgLoaded && !imgError && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-base-content/10 rounded-full">
+                              <span className="loading loading-ring loading-xl w-4 h-4"></span>
+                            </div>
+                          )}
                         <img
-                          src={user.profilePic || "/default-avatar.png"}
+                          src={!imgError ? user.profilePic : userPng}
                           alt={user.fullName || user.username}
                           className="w-10 h-10 rounded-full object-cover border border-base-content/10"
+                          onLoad={() => setImgLoaded(true)}
+                          onError={() => setImgError(true)}
                         />
+                        </div>
                         <div className="flex-1 min-w-0">
                           <div className="font-semibold text-base-content truncate">
                             {user.fullName || user.fullName}

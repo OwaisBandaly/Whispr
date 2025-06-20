@@ -5,11 +5,14 @@ import { Link, useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logOut } from "../../lib/api";
 import useThemeStore from "../../store/useThemeStore";
+import userPng from "../../../public/user.png"
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { userData } = useAuthUser();
   const [showMenu, setShowMenu] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const menuRef = useRef();
 
   const { theme, toggleTheme } = useThemeStore();
@@ -36,13 +39,6 @@ const Navbar = () => {
     <nav className={`w-full h-14 px-4 flex items-center justify-end bg-base-200 border-b border-neutral-800 shadow z-10
     ${theme === "sunset" ? "text-violet-50/90" : "text-[#0f0c29]"}
     `}>
-      {/* Logo only visible on mobile */}
-      {/* <div className="block md:hidden">
-        <span className={`text-lg ml-7 font-semibold italic`}>
-          Whispr.
-        </span>
-      </div> */}
-
       {/* Right side icons */}
       <div className="flex items-center sm:gap-1">
         <Link to="/notifications" className="btn btn-ghost btn-circle">
@@ -57,21 +53,26 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* <button className="btn btn-ghost btn-circle">
-          <Settings className="w-5 h-5 text-base-content" />
-        </button> */}
-
         {/* Profile dropdown */}
         <div className="relative" ref={menuRef}>
           <button
             className="btn btn-ghost btn-circle"
             onClick={() => setShowMenu((v) => !v)}
           >
-            <img
-              src={userData?.profilePic || "/default-avatar.png"}
-              alt="User"
-              className="w-7 h-7 rounded-full object-cover border-2 border-base-content"
-            />
+            <div className="relative w-7 h-7 rounded-full">
+              {!imgLoaded && !imgError && (
+                <div className="absolute inset-0 flex items-center justify-center bg-neutral-700/40 rounded-full">
+                  <span className="loading loading-ring loading-xl w-4 h-4"></span>
+                </div>
+              )}
+              <img
+                src={!imgError ? userData?.profilePic : userPng}
+                alt="User"
+                onLoad={() => setImgLoaded(true)}
+                onError={() => setImgError(true)}
+                className="w-7 h-7 rounded-full object-cover border-2 border-base-content"
+              />
+            </div>
           </button>
 
           {showMenu && (

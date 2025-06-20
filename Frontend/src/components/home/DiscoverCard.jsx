@@ -23,7 +23,7 @@ const DiscoverCard = ({
     `}>
       <div className="relative w-12 h-12 rounded-full ">
         {!imgLoaded && !imgError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-neutral-700/40 rounded-full">
+          <div className="absolute inset-0 flex items-center justify-center bg-base-content/10 rounded-full">
             <span className="loading loading-ring loading-xl w-4 h-4"></span>
           </div>
         )}
