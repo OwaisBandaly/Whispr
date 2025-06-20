@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sun, Moon, Settings, UserPen, LogOut, BellDot, MessageCircle } from "lucide-react";
+import { Sun, Moon, Settings, UserPen, LogOut, BellDot, ArrowLeft } from "lucide-react";
 import useAuthUser from "../../hooks/useAuthUser";
 import { Link, useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -36,9 +36,16 @@ const Navbar = () => {
   }, [showMenu]);
 
   return (
-    <nav className={`w-full h-14 px-4 flex items-center justify-end bg-base-200 border-b border-neutral-800 shadow z-10
+    <nav className={`w-full h-14 px-4 flex items-center justify-between md:justify-end bg-base-200 border-b border-neutral-800 shadow z-10
     ${theme === "sunset" ? "text-violet-50/90" : "text-[#0f0c29]"}
     `}>
+
+      <div className="flex items-center gap-2 md:hidden">
+        <Link to="/">
+        <ArrowLeft />
+        </Link>
+      </div>
+
       {/* Right side icons */}
       <div className="flex items-center sm:gap-1">
         <Link to="/notifications" className="btn btn-ghost btn-circle">
