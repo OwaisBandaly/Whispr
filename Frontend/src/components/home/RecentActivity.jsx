@@ -34,7 +34,7 @@ const RecentActivity = ({ allRequest, pendingRequestLoading }) => {
   const { theme } = useThemeStore()
 
   return (
-    <div className={`bg-base-200 rounded-xl max-h-[20rem] overflow-y-scroll p-4 border border-neutral-800 shadow flex flex-col custom-scrollbar
+    <div className={`bg-base-200 rounded-xl max-h-[20rem] overflow-y-auto p-4 border border-neutral-800 shadow flex flex-col custom-scrollbar
     ${theme === "sunset" ? "text-violet-50/95" : "text-[#0f0c29]"}
     `}>
       <h2 className="font-medium text-lg mb-4">

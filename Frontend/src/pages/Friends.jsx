@@ -105,7 +105,7 @@ const Friends = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-base-100 w-full md:max-w-[60vw] rounded-xl shadow md:p-4 p-1 h-[60vh] overflow-y-auto">
+      <div className="bg-base-100 w-full md:max-w-[60vw] rounded-xl shadow md:p-4 p-1 h-[60vh] overflow-y-auto custom-scrollbar">
         {tab === "all" && (
           <div>
             {myFriends.length === 0 ? (

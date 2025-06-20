@@ -23,7 +23,7 @@ const DiscoverPeopleSection = ({
   })
 
   return (
-    <div className={`custom-scrollbar md:col-span-2 bg-base-200 max-h-[30rem] overflow-y-scroll md:overflow-y-auto rounded-xl p-4 border border-neutral-800 shadow flex flex-col`}>
+    <div className={`custom-scrollbar md:col-span-2 bg-base-200 max-h-[30rem] overflow-y-auto md:overflow-y-auto rounded-xl p-4 border border-neutral-800 shadow flex flex-col`}>
     <div className="inline-flex gap-1 my-1">
       <UserPlus className="mt-0.5" />
       <h2 className="font-light emerald mb-3 text-xl">

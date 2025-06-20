@@ -14,13 +14,13 @@
 /* Custom scrollbar for discover and activity lists */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #008f2634 #23272e00;
+  scrollbar-color: #3131315e #23272e00;
 }
 
 /* Chrome/Edge/Safari */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
-  background: #23272e00;
+  background: #004fd800;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #69786d34; 
@@ -127,12 +127,13 @@ body,
       cursor: pointer;
       border: none;
       background: transparent;
-
-      &:hover {
-        display: none;
-      }
+ 
+    }
+    .str-chat__header-hamburger {
+      display: none;
     }
   }
+
 
   /* Message bubbles */
   .str-chat__message {

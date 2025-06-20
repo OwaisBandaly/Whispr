@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { Sun, Moon, Settings, UserPen, LogOut, BellDot, ArrowLeft } from "lucide-react";
+import { Sun, Moon, UserPen, LogOut, BellDot, ArrowLeft, AudioWaveform } from "lucide-react";
 import useAuthUser from "../../hooks/useAuthUser";
 import { Link, useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logOut } from "../../lib/api";
 import useThemeStore from "../../store/useThemeStore";
 import userPng from "../../../public/user.png"
+import { useLocation, useParams } from "react-router";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ const Navbar = () => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
   const menuRef = useRef();
-
+  const location = useLocation();
   const { theme, toggleTheme } = useThemeStore();
+
+  const {id} = useParams();
 
   const queryClient = useQueryClient();
   const { mutate: logoutMutation } = useMutation({
@@ -36,13 +39,27 @@ const Navbar = () => {
   }, [showMenu]);
 
   return (
-    <nav className={`w-full h-14 px-4 flex items-center justify-between md:justify-end bg-base-200 border-b border-neutral-800 shadow z-10
+    <nav className={`w-full h-14 px-4 flex items-center justify-between md:justify-between bg-base-200 border-b border-neutral-800 shadow z-10
     ${theme === "sunset" ? "text-violet-50/90" : "text-[#0f0c29]"}
     `}>
 
       <div className="flex items-center gap-2 md:hidden">
         <Link to="/">
-        <ArrowLeft />
+        {<ArrowLeft /> }
+        </Link>
+      </div>
+
+      <div className="md:flex w-fit items-center hidden">
+        <Link to="/">
+        {(location.pathname === "/chat" || location.pathname === `/chat/${id}`) && (
+          <div className="flex items-center gap-1">
+             <AudioWaveform />
+            <span 
+            className={`md:text-2xl text-xl font-semibold italic`}>
+            Whispr.
+            </span>
+          </div>
+        )}
         </Link>
       </div>
 

@@ -3,6 +3,9 @@ import { getMyFriends, getSearchedUsers } from "../lib/api";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useAuthUser from "../hooks/useAuthUser";
+import useThemeStore from "../store/useThemeStore";
+
+
 
 const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
   const { id } = useParams();
@@ -11,6 +14,8 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
+
+  const {theme} = useThemeStore();
 
   const { data: friends = [], isLoading } = useQuery({
     queryKey: ["myFriends"],
@@ -42,14 +47,16 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
   
 
   return (
-    <aside className="border-r border-base-content/10 h-screen md:max-w-80 overflow-hidden w-screen flex flex-col py-4 px-2 shadow-lg">
+    <aside className={`border-r border-base-content/10 h-screen md:max-w-80 overflow-y-auto custom-scrollbar w-screen flex flex-col pt-6 px-2 shadow-lg
+      ${theme === "sunset" ? "text-violet-50/95" : "text-[#0f0c29]"}
+    `}>
       <div className="mb-4">
           <input
             type="text"
-            placeholder="Search friend..."
+            placeholder="Search for a friend..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="px-2 py-2 border-1 text-sm rounded-lg bg-base-100 focus:outline-0 border-neutral-700 text-base-content w-full"
+            className="px-2 py-2 border-1 text-sm rounded-lg bg-base-100 focus:outline-0 border-neutral-700 w-full"
           />
       </div>
 
@@ -66,10 +73,10 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
             <span className="font-medium text-lg mt-2 px-2">Recent Chats</span>
             {!talkedUser || talkedUser.length === 0 ? (
               <div className="text-center py-10">
-                <span className="text-sm font-light">No recent chats.</span>
+                <span className="text-sm font-light text-base-content/90">No recent chats.</span>
               </div>
             ) : (
-              <ul className="flex flex-col gap-2 mt-6">
+              <ul className="flex flex-col gap-2 mt-4">
                 {talkedUser.map(
                   ({
                     user,
@@ -108,15 +115,15 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-base-content truncate">
+                        <div className="truncate">
                           {user.name || user.name}
                         </div>
-                        <div className="text-xs text-base-content/90 truncate">
+                        <div className="text-xs text-base-content/95 truncate">
                           {lastMessage}
                         </div>
                       </div>
                       <div className="flex gap-1 flex-col justify-center items-center">
-                        <span className="text-xs text-base-content/80">
+                        <span className="text-xs text-base-content/85">
                           {lastMessage == "(No messages)" ? "": new Date(lastMessageAt).toLocaleDateString()}
                         </span>
                         {unreadMessage > 0 && (
@@ -133,14 +140,14 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
           </>
         ) : (
           <>
-            <span>Search Results</span>
+            <span className="font-medium text-lg mt-2 px-2">Search Results</span>
             {searchUserLoaing ? (
               <div className="text-center py-8">
                 <span className="loading loading-spinner"></span>
               </div>
             ) : acceptedFriends.length === 0 ? (
               <div className="text-center py-10">
-                <span className="text-sm font-light">No user found.</span>
+                <span className="text-sm font-light text-base-content/90">No user found.</span>
               </div>
             ) : (
               <ul className="flex flex-col gap-2">
@@ -178,7 +185,7 @@ const SidebarFriends = ({ talkedUser, onSelectFriend }) => {
                         />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-base-content truncate">
+                          <div className="font-semibold truncate">
                             {user.fullName || user.fullName}
                           </div>
                         </div>

@@ -46,9 +46,11 @@ const Sidebar = () => {
           {/* Logo */}
           <div className={`flex items-center h-14 border-b ${theme === "sunset" ? "text-violet-50" : "text-[#0f0c29]"} border-neutral-800 gap-1 px-4`}>
             <AudioWaveform />
-            <span className={`md:text-2xl text-xl font-semibold italic`}>
-              Whispr.
-            </span>
+            <Link 
+            to="/" 
+            className={`md:text-2xl text-xl font-semibold italic`}>
+            Whispr.
+            </Link>
           </div>
 
           {/* Nav */}
