@@ -65,8 +65,8 @@ const Navbar = () => {
       </div>
 
       {/* Right side icons */}
-      <div className="flex items-center sm:gap-1">
-        <Link to="/notifications" className="btn btn-ghost btn-circle">
+      <div className={`flex items-center sm:gap-1`}>
+        <Link to="/notifications" className={`btn btn-ghost btn-circle ${location.pathname === `/chat/${id}` ? "hidden" : "visible"}`}>
           <BellDot className="w-[1.6rem] h-[1.6rem]" />
         </Link>
 
@@ -121,7 +121,9 @@ const Navbar = () => {
                 </button> */}
                 {/* edit profile */}
                 <button
-                  className="flex items-center gap-2 px-4 py-1.5 hover:bg-base-content/5 rounded-lg"
+                  className={`flex items-center gap-2 px-4 py-1.5 hover:bg-base-content/5 rounded-lg
+                    ${location.pathname === `/chat/${id}` ? "hidden" : "visible"}
+                    `}
                   onClick={() => {
                     setShowMenu(false);
                     navigate("/update-profile");
