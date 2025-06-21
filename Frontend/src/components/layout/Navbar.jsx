@@ -41,6 +41,7 @@ const Navbar = () => {
   return (
     <nav className={`w-full h-14 px-4 flex items-center justify-between md:justify-between bg-base-200 border-b border-neutral-800 shadow z-10
     ${theme === "sunset" ? "text-violet-50/90" : "text-[#0f0c29]"}
+    ${location.pathname === `/call/${id}` ? "hidden" : "visible"}
     `}>
 
       <div className="flex items-center gap-2 md:hidden">

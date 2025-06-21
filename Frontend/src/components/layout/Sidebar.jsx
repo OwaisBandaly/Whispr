@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Home, Users, Circle, MessageCircle, Menu, MessageCircleMore, AudioWaveform } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import useAuthUser from "../../hooks/useAuthUser";
 import useThemeStore from "../../store/useThemeStore";
 import userPng from "../../../public/user.png"
 
 const Sidebar = () => {
+  const {id} = useParams();
   const { userData } = useAuthUser();
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -39,7 +40,9 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         className={`flex flex-col justify-between fixed z-50 top-0 left-0 h-screen w-64 bg-base-200 border-r-2 border-neutral-800 shadow-lg transition-transform duration-300 md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"
-          } md:static ${theme === "sunset" ? "text-violet-50" : "text-[#0f0c29]"}`}
+          } md:static ${theme === "sunset" ? "text-violet-50" : "text-[#0f0c29]"}
+          ${location.pathname === `/call/${id}` ? "hidden" : "visible"}
+          `}
       >
         {/* Top: Logo and Nav */}
         <div>

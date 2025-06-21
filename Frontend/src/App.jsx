@@ -153,7 +153,7 @@ const App = () => {
         />
 
         <Route
-          path="/call"
+          path="/call/:id"
           element={
             isAuthenticated && isVerified && isOnboarded ? (
               <Layout showSidebar>

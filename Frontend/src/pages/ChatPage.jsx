@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { useQuery } from "@tanstack/react-query";
 import { getMyFriends, getStreamToken } from "../lib/api";
@@ -16,11 +16,13 @@ import toast from "react-hot-toast";
 import SidebarFriends from "../components/SidebarFriends";
 import useThemeStore from "../store/useThemeStore";
 import { MessageSquare } from "lucide-react";
+import CallButton from "../components/CallButton";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
 export const ChatPage = () => {
   const { id: targetUserId } = useParams();
+  const navigate = useNavigate();
   const { userData } = useAuthUser();
   const { theme } = useThemeStore();
 
@@ -108,7 +110,7 @@ export const ChatPage = () => {
             return {
               myId: userData?._id,
               user: other,
-              lastMessage: lastMsg?.text || "(No messages)",
+              lastMessage: lastMsg?.text || "",
               unreadMessage: ch.countUnread(),
               lastMessageAt: ch.state.last_message_at,
             };
@@ -132,11 +134,22 @@ export const ChatPage = () => {
     }
   }, [targetUserId]);
 
+  const handleVideoCall = () => {
+    if(channel) {
+      const callUrl = `${window.location.origin}/call/${channel.id}`;
+      channel.sendMessage({
+        text: `I have started a video call, join me here: ${callUrl}`
+      })
+    }
+  }
+
+
   // Loading state
   if (tokenLoading || loading || !chatClient) {
     return (
-      <div className="flex items-center justify-center h-screen w-screen">
-        <span className="loading loading-spinner" />
+      <div className="flex items-center gap-2 justify-center h-full w-full">
+        <span className="text-md">Loading chats</span>
+        <span className="loading loading-dots" />
       </div>
     );
   }
@@ -145,6 +158,7 @@ export const ChatPage = () => {
   return (
   <div className="flex flex-1 flex-col md:flex-row h-full w-screen overflow-hidden">
     {/* Sidebar */}
+    {console.log("CHANNEL", channel)}
     <div
       className={`
         ${targetUserId ? "hidden" : "block"} 
@@ -182,11 +196,14 @@ export const ChatPage = () => {
           }`}
         >
           <Channel channel={channel}>
+            <div className="w-full relative">
+              <CallButton handleVideoCall={handleVideoCall} />
             <Window>
               <ChannelHeader />
               <MessageList />
               <MessageInput focus />
             </Window>
+            </div>
           </Channel>
         </Chat>
       ) : (
