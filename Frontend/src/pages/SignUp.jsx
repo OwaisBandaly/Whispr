@@ -8,6 +8,7 @@ import {
   MessageCircle,
   ShieldUser,
   LoaderCircle,
+  AudioWaveform,
 } from "lucide-react";
 import signupImage from "../../public/signup.png";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -46,7 +47,7 @@ const SignUp = () => {
       className="min-h-screen min-w-screen flex items-center justify-center bg-base-300 p-4"
       data-theme="sunset"
     >
-      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-2 border-neutral-800 max-w-3xl w-full">
+      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
         {/* Form Section */}
         <div className="flex-1 flex flex-col justify-center p-8 w-full">
           <form
@@ -55,25 +56,25 @@ const SignUp = () => {
             autoComplete="off"
           >
             <div>
-              <div className="flex items-center gap-1 text-left">
-                <MessageCircle className="w-7 h-7 text-[#1fc193] mb-2" />
-                <h2 className="text-2xl font-bold tracking-wider italic text-left  bg-gradient-to-r from-[#1fc193] to-[#26a2c1] bg-clip-text text-transparent mb-2">
-                  Chatify
+              <div className="flex text-violet-50 items-center gap-1 text-left">
+                <AudioWaveform className="w-7 h-7 mb-2" />
+                <h2 className="text-2xl font-semibold text-left mb-2">
+                  Whispr.
                 </h2>
               </div>
-              <h2 className="text-lg font-semibold text-left text-emerald-50">
+              <h2 className="text-lg mt-1 text-left text-gray-200">
                 Create an Account
               </h2>
-              <p className="text-sm text-left text-gray-400 mb-6">
-                Enter your details to create your account
+              <p className="text-sm font-light text-left text-gray-400 mb-6">
+                Enter your details to create your account.
               </p>
             </div>
             {/* Username */}
-            <label className="input flex border-2 border-neutral-700 items-center gap-2 bg-base-100 w-full ">
+            <label className="p-2 rounded-lg focus:outline-none pl-3 flex border-1 border-base-content/20 items-center gap-2 bg-base-100 w-full ">
               <User className="w-5 h-5 text-[#7cdc96c7]" />
               <input
                 type="text"
-                className="grow text-emerald-50/90 !bg-transparent autofill:!bg-transparent focus:!bg-transparent w-full"
+                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Username"
                 name="username"
                 value={signupData.username}
@@ -84,11 +85,11 @@ const SignUp = () => {
             </label>
 
             {/* Email */}
-            <label className="input border-2 border-neutral-700 flex items-center gap-2 bg-base-100 w-full ">
+            <label className="p-2 rounded-lg focus:outline-none pl-3 border-1 border-base-content/20 flex items-center gap-2 bg-base-100 w-full ">
               <Mail className="w-5 h-5 text-[#7cdc96d1]" />
               <input
                 type="email"
-                className="grow text-emerald-50/90 !bg-transparent autofill:!bg-transparent focus:!bg-transparent w-full"
+                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Email"
                 name="email"
                 value={signupData.email}
@@ -99,11 +100,11 @@ const SignUp = () => {
             </label>
 
             {/* Password */}
-            <label className="input border-2 border-neutral-700 flex items-center gap-2 bg-base-100 w-full">
+            <label className="p-2 rounded-lg focus:outline-none pl-3 border-1 border-base-content/20 flex items-center gap-2 bg-base-100 w-full">
               <Lock className="w-5 h-5 text-[#7cdc96c8]" />
               <input
                 type={showPassword ? "text" : "password"}
-                className="grow text-emerald-50/90 !bg-transparent autofill:!bg-transparent focus:!bg-transparent w-full"
+                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Password"
                 name="password"
                 value={signupData.password}
@@ -131,7 +132,7 @@ const SignUp = () => {
               </div>
             )}
             <button
-              className="btn bg-[#7cdc96] hover:bg-[#80ca94] text-black text-[1.020rem] font-bold w-full mt-4"
+              className="btn bg-[#7cdc96] hover:bg-[#80ca94] text-black text-[1.001rem] font-bold w-full mt-4"
               type="submit"
             >
               {isPending ? (

@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ResetSuccess = () => (
-  <div className="w-full max-w-md mx-2 md:mx-auto bg-base-100 p-8 rounded-xl shadow flex flex-col items-center">
+  <div className="w-full max-w-md mx-3 md:mx-auto bg-base-100 p-8 rounded-xl shadow flex flex-col items-center">
     <div className="bg-green-600 animate-bounce p-2 rounded-full mb-5">
       <Check className="w-8 h-8 text-white" />
     </div>

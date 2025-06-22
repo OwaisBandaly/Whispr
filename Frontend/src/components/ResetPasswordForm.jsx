@@ -43,7 +43,7 @@ const ResetPasswordForm = () => {
       {isSuccess ? (
         <ResetSuccess />
       ) : (
-        <div className="w-full max-w-[29rem] mx-2 md:mx-auto bg-base-100 p-8 rounded-xl shadow">
+        <div className="w-full max-w-[29rem] mx-3 md:mx-auto bg-base-100 p-8 rounded-xl shadow">
           <div className="flex flex-col items-center mb-6">
             <div className="bg-blue-700/90 p-3 rounded-full mb-5">
               <ShieldCheck className="w-7 h-7 text-emerald-50 text-center" />
@@ -111,7 +111,7 @@ const ResetPasswordForm = () => {
             </button>
           </form>
           <div className="divider mt-7 mb-2" />
-          <div className="text-center text-gray-500">
+          <div className="text-center text-sm sm:text-md text-gray-500">
             <span>Remember your password? </span>
             <Link
               to="/login"

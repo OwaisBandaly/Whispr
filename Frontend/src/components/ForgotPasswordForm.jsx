@@ -33,7 +33,7 @@ const ForgotPasswordForm = () => {
       isSuccess ? (
         <ForgotSuccess email={email} />
       ) : (
-        <div className="w-fit mx-2 md:max-w-[29rem] md:mx-auto bg-base-100 p-8 rounded-xl shadow">
+        <div className="w-fit mx-3 md:max-w-[29rem] md:mx-auto bg-base-100 p-8 rounded-xl shadow">
       <div className="flex flex-col items-center mb-6">
         <div className="bg-blue-700/90 p-3 rounded-full mb-5">
         <Mail className="w-7 h-7 text-emerald-50 text-center" />
@@ -76,7 +76,7 @@ const ForgotPasswordForm = () => {
         </Link>
       </div>
       <div className="divider mt-7 mb-2" />
-      <div className="text-center text-gray-500">
+      <div className="text-center text-sm sm:text-md text-gray-500">
         <span>Don't have an account? </span>
         <Link to="/signup" className="text-blue-500/80 hover:text-blue-300 hover:underline">
           Sign up here

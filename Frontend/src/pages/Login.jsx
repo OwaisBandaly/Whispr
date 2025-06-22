@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, MessageCircle } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, MessageCircle, AudioWaveform } from "lucide-react";
 import signupImage from "../../public/signup.png";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logIn } from "../lib/api";
@@ -55,7 +55,7 @@ const Login = () => {
       className="min-h-screen min-w-screen flex items-center justify-center bg-base-300 p-4"
       data-theme="sunset"
     >
-      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-2 border-neutral-800 max-w-3xl w-full">
+      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
         {/* Image Section */}
         <div className="hidden bg-base-content/5 md:flex items-center justify-center w-1/2 p-8">
           <img
@@ -73,25 +73,25 @@ const Login = () => {
             autoComplete="off"
           >
             <div>
-              <div className="flex items-center gap-1 text-left">
-                <MessageCircle className="w-7 h-7 text-[#1fc193] mb-2" />
-                <h2 className="text-2xl font-bold tracking-wider italic text-left bg-gradient-to-r from-[#1fc193] to-[#26a2c1] bg-clip-text text-transparent mb-2">
-                  Chatify
+              <div className="flex text-violet-50 items-center gap-1 text-left">
+                <AudioWaveform className="w-7 h-7 mb-2" />
+                <h2 className="text-2xl font-semibold text-left mb-2">
+                  Whispr.
                 </h2>
               </div>
-              <h2 className="text-lg font-semibold text-left text-emerald-50">
+              <h2 className="text-[1.12rem] mt-1 text-left text-gray-200">
                 Welcome Back
               </h2>
-              <p className="text-sm text-left text-gray-400 mb-6">
-                Sign in to your account to continue
+              <p className="text-sm text-left font-light text-gray-400 mb-6">
+                Sign in to your account to continue.
               </p>
             </div>
             {/* Email */}
-            <label className="input border-2 border-neutral-700 flex items-center gap-2 bg-base-100 w-full ">
+            <label className="p-2 rounded-lg focus:outline-none pl-3 border-1 border-base-content/20 flex items-center gap-2 bg-base-100 w-full ">
               <Mail className="w-5 h-5 text-[#7cdc96]" />
               <input
                 type="email"
-                className="grow text-emerald-50/90 !bg-transparent autofill:!bg-transparent focus:!bg-transparent w-full"
+                className="grow text-emerald-50/90 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Email"
                 name="email"
                 value={loginData.email}
@@ -102,11 +102,11 @@ const Login = () => {
             </label>
 
             {/* Password */}
-            <label className="input border-2 border-neutral-700 flex items-center gap-2 bg-base-100 w-full">
+            <label className="p-2 rounded-lg focus:outline-none pl-3 border-1 border-base-content/20 flex items-center gap-2 bg-base-100 w-full">
               <Lock className="w-5 h-5 text-[#7cdc96]" />
               <input
                 type={showPassword ? "text" : "password"}
-                className="grow text-emerald-50/90 !bg-transparent autofill:!bg-transparent focus:!bg-transparent w-full"
+                className="grow text-emerald-50/90 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Password"
                 name="password"
                 value={loginData.password}
@@ -133,7 +133,7 @@ const Login = () => {
             >
               <Link 
               to="/forget-password"
-              className="cursor-pointer text-sm text-gray-400 hover:text-gray-200 hover:underline">
+              className="cursor-pointer text-sm text-gray-300/90 hover:text-gray-200 hover:underline">
                 Forget Password?
               </Link>
             </button>
@@ -145,7 +145,7 @@ const Login = () => {
               </div>
             )} */}
             <button
-              className="btn bg-[#6ee38d] hover:bg-[#8affa9] text-black text-[1.025rem] font-semibold w-full mt-4"
+              className="btn bg-[#6ee38d] hover:bg-[#8affa9] text-black text-[1.020rem] font-semibold w-full mt-4"
               type="submit"
             >
               {isPending ? (

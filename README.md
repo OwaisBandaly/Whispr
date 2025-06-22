@@ -1,7 +1,7 @@
 # Whispr.
 
 A modern, full-stack social chat application built with React, Node.js, Express, MongoDB, and Stream Chat SDK.  
-Chatify lets you connect with friends, send and accept friend requests, chat in real-time, and manage your social network with a beautiful, responsive UI.
+whispr. lets you connect with friends, send and accept friend requests, chat in real-time, and manage your social network with a beautiful, responsive UI.
 
 ---
 
