@@ -18,10 +18,10 @@ const DiscoverCard = ({
   const {theme} = useThemeStore();
 
   return (
-    <div className={`flex items-center gap-3 rounded-lg p-3 border border-neutral-700
+    <div className={`flex items-center gap-3 rounded-lg px-3 py-2 sm:py-3 sm:px-3 border border-neutral-700
    ${theme === "sunset" ? "text-violet-50": "text-[#0f0c29]"}
     `}>
-      <div className="relative w-12 h-12 rounded-full ">
+      <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full ">
         {!imgLoaded && !imgError && (
           <div className="absolute inset-0 flex items-center justify-center bg-base-content/10 rounded-full">
             <span className="loading loading-ring loading-xl w-4 h-4"></span>
@@ -33,16 +33,16 @@ const DiscoverCard = ({
           alt={person.username}
           onLoad={() => setImgLoaded(true)}
           onError={() => setImgError(true)}
-          className={`w-12 h-12 rounded-full object-cover border-2 border-[#4c504d96] transition-opacity duration-300`}
+          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-[#4c504d96] transition-opacity duration-300`}
         />
       </div>
 
       <div className="flex-1">
-        <h1 className="font-medium text-[1.1rem]">
+        <h1 className="font-medium text-md sm:text-[1.1rem]">
           {person.fullName}
         </h1>
         {person.location && (
-          <div className="flex items-center gap-1 text-base-content/85 text-sm">
+          <div className="flex items-center gap-1 text-base-content/85 text-xs sm:text-sm">
             {person.age ? `${person.age} yrs` : ""}
             {person.age && person.location && " • "}
             {person.location}
@@ -64,7 +64,7 @@ const DiscoverCard = ({
         </button>
       ) : (
         <button
-          className={`btn btn-md bg-[#302b63] font-normal text-violet-50 flex items-center gap-1`}
+          className={`btn sm:btn-md btn-sm bg-[#302b63] font-normal text-violet-50 flex items-center gap-1`}
           onClick={onSendRequest}
           disabled={loading || isRequested}
         >
@@ -77,7 +77,7 @@ const DiscoverCard = ({
             <span className="loading loading-spinner loading-md" />
           ) : ( 
             <>
-              <UserPlus className="w-4 h-4" />
+              <UserPlus className="sm:w-4 sm:h-4 w-3 h-3" />
               Add
             </>
           )}

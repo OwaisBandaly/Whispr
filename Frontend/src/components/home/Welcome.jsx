@@ -8,7 +8,7 @@ const Welcome = ({ userData, friends }) => {
 
   return (
     <div className="mb-6">
-    <div className={`flex justify-between items-center rounded-xl p-6 bg-gradient-to-r from-[#0f0c29] via-[#302b6370] to-[#24243e] shad#f64f59ow-lg`}>
+    <div className={`flex justify-between items-center rounded-xl p-6 bg-gradient-to-r from-[#0f0c29] via-[#302b6370] to-[#24243ec1]`}>
       <div className="flex flex-col align-middle">
         <h1 className={`md:text-[1.7rem] text-lg font-light text-violet-50 drop-shadow`}>
           Welcome back, <span className="font-normal">{userData?.fullName.split(" ",1) || "User"}!</span>

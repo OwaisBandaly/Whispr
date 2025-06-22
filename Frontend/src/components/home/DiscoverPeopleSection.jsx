@@ -25,8 +25,8 @@ const DiscoverPeopleSection = ({
   return (
     <div className={`custom-scrollbar md:col-span-2 bg-base-200 max-h-[30rem] overflow-y-auto md:overflow-y-auto rounded-xl p-4 border border-neutral-800 shadow flex flex-col`}>
     <div className="inline-flex gap-1 my-1">
-      <UserPlus className="mt-0.5" />
-      <h2 className="font-light emerald mb-3 text-xl">
+      <UserPlus className="sm:mt-0.5 mt-[0.22rem] sm:w-6 sm:h-6 w-5 h-5" />
+      <h2 className="font-light emerald mb-3 text-lg sm:text-xl">
         Discover People
       </h2>
     </div>
@@ -36,7 +36,7 @@ const DiscoverPeopleSection = ({
         placeholder="Search for people..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="p-3 border-1 rounded-xl bg-base-100 focus:outline-0 border-neutral-700 text-base-content w-full"
+        className="p-2 border-1 rounded-lg bg-base-100/60 focus:outline-0 border-neutral-700 text-base-content w-full"
       />
     </div>
     {suggestFriendsLoading || searchUserLoaing ? (

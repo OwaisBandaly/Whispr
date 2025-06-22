@@ -53,7 +53,7 @@ const RecentActivity = ({ allRequest, pendingRequestLoading }) => {
           filteredActivities.map((req) => (
             <li
               key={req._id}
-              className="text-sm bg-base-100 flex gap-2 items-center rounded p-2"
+              className="text-sm bg-base-100 flex gap-2 items-center rounded-lg p-2"
             >
               <div className="relative w-7 h-7 rounded-full">
                 {!imgLoaded && !imgError && (

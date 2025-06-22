@@ -55,7 +55,7 @@ const Login = () => {
       className="min-h-screen min-w-screen flex items-center justify-center bg-base-300 p-4"
       data-theme="sunset"
     >
-      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
+      <div className="flex scale-95 sm:scale-100 flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
         {/* Image Section */}
         <div className="hidden bg-base-content/5 md:flex items-center justify-center w-1/2 p-8">
           <img
@@ -91,7 +91,7 @@ const Login = () => {
               <Mail className="w-5 h-5 text-[#7cdc96]" />
               <input
                 type="email"
-                className="grow text-emerald-50/90 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
+                className="grow text-gray-200 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Email"
                 name="email"
                 value={loginData.email}
@@ -106,7 +106,7 @@ const Login = () => {
               <Lock className="w-5 h-5 text-[#7cdc96]" />
               <input
                 type={showPassword ? "text" : "password"}
-                className="grow text-emerald-50/90 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
+                className="grow text-gray-200 !bg-transparent text-sm autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Password"
                 name="password"
                 value={loginData.password}

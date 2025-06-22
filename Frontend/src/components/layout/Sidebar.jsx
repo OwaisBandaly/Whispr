@@ -22,7 +22,7 @@ const Sidebar = () => {
       {/* Mobile Menu Button */}
       <div className="md:hidden fixed top-2 left-2 z-50">
         <button
-          className="btn btn-square btn-md"
+          className="btn btn-square rounded-lg btn-md bg-base-300"
           onClick={() => setOpen(!open)}
         >
           <AudioWaveform className={`rotate-90 w-6 h-6 ${theme === "sunset" ? "text-violet-50/90" : "text-[#0f0c29]"}`} />

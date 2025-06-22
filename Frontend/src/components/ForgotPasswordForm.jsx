@@ -33,7 +33,7 @@ const ForgotPasswordForm = () => {
       isSuccess ? (
         <ForgotSuccess email={email} />
       ) : (
-        <div className="w-fit mx-3 md:max-w-[29rem] md:mx-auto bg-base-100 p-8 rounded-xl shadow">
+        <div className="w-fit scale-95 sm:scale-100 mx-3 md:max-w-[29rem] md:mx-auto bg-base-100 p-8 rounded-xl shadow">
       <div className="flex flex-col items-center mb-6">
         <div className="bg-blue-700/90 p-3 rounded-full mb-5">
         <Mail className="w-7 h-7 text-emerald-50 text-center" />

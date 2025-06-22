@@ -47,7 +47,7 @@ const SignUp = () => {
       className="min-h-screen min-w-screen flex items-center justify-center bg-base-300 p-4"
       data-theme="sunset"
     >
-      <div className="flex flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
+      <div className="flex scale-95 sm:scale-100 flex-col md:flex-row bg-base-200 rounded-xl shadow-lg overflow-hidden border-1 border-base-content/20 max-w-3xl w-full">
         {/* Form Section */}
         <div className="flex-1 flex flex-col justify-center p-8 w-full">
           <form
@@ -74,7 +74,7 @@ const SignUp = () => {
               <User className="w-5 h-5 text-[#7cdc96c7]" />
               <input
                 type="text"
-                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
+                className="grow text-gray-200 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Username"
                 name="username"
                 value={signupData.username}
@@ -89,7 +89,7 @@ const SignUp = () => {
               <Mail className="w-5 h-5 text-[#7cdc96d1]" />
               <input
                 type="email"
-                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
+                className="grow text-gray-200 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Email"
                 name="email"
                 value={signupData.email}
@@ -104,7 +104,7 @@ const SignUp = () => {
               <Lock className="w-5 h-5 text-[#7cdc96c8]" />
               <input
                 type={showPassword ? "text" : "password"}
-                className="grow text-emerald-50/90 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
+                className="grow text-gray-200 text-sm !bg-transparent autofill:!bg-transparent focus:outline-none w-full"
                 placeholder="Password"
                 name="password"
                 value={signupData.password}

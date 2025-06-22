@@ -103,22 +103,6 @@ const Navbar = () => {
           {showMenu && (
             <div className="absolute mt-2 right-0 w-46 bg-base-200 border border-neutral-700 rounded-xl shadow-lg z-50">
               <div className="flex flex-col py-2 px-1">
-                {/* change theme */}
-                {/* <button
-                  className="btn-circle hover:bg-base-content/5 rounded-lg px-4 py-1.5"
-                  onClick={toggleTheme}
-                >
-                  {theme === "sunset" ? (
-                    <span className="flex text-md items-center  gap-2"><Sun className="w-5 h-5 text-slate-100" />
-                      {`${theme === "sunset" ? "Light mode" : "Dark mode"}`}
-                    </span>
-                  ) : (
-                    <span className="flex text-md items-center gap-2"><Moon className="w-5 h-5 text-slate-900" />
-                      {`${theme === "sunset" ? "Light mode" : "Dark mode"}`}
-                    </span>
-                  )}
-
-                </button> */}
                 {/* edit profile */}
                 <button
                   className={`flex items-center gap-2 px-4 py-1.5 hover:bg-base-content/5 rounded-lg
