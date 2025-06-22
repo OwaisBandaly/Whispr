@@ -141,8 +141,8 @@ export const verifyUser = async (req, res) => {
     });
 
     const redirectTo = user?.isOnboarded
-      ? "http://localhost:5173/"
-      : "http://localhost:5173/onboard";
+      ? `${process.env.CORS_ORIGIN}`
+      : `${process.env.CORS_ORIGIN}/onboard`
 
     return res.redirect(302, redirectTo);
   } catch (error) {
