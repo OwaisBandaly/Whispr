@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - alerts.yml
+
+scrape_configs:
+  - job_name: whispr-backend-local
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - localhost:5000
+
+  - job_name: whispr-backend-render
+    scheme: https
+    metrics_path: /metrics
+    authorization:
+      credentials: REPLACE_WITH_METRICS_TOKEN
+    static_configs:
+      - targets:
+          - your-render-service.onrender.com

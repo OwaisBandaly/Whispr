@@ -9,6 +9,7 @@ import {
   VerifyEmailMail,
   VerifyEmailSuccessMail,
 } from "../utils/sendMails.js";
+import { recordAppError, recordAuthEvent } from "../monitoring/metrics.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -79,6 +80,7 @@ export const registerUser = async (req, res) => {
       return res
         .status(500)
         .json({ success: false, message: "User creation failed" });
+    recordAuthEvent("register_success");
 
     // insert data into stream platform.
     try {
@@ -98,6 +100,7 @@ export const registerUser = async (req, res) => {
       data: createdUser,
     });
   } catch (error) {
+    recordAppError("register_user");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -126,6 +129,7 @@ export const verifyUser = async (req, res) => {
 
     await user.save();
     await VerifyEmailSuccessMail(user); //sending success email.
+    recordAuthEvent("verify_success");
 
     // generate a JWT token so user can access protected routes.
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -146,6 +150,7 @@ export const verifyUser = async (req, res) => {
 
     return res.redirect(302, redirectTo);
   } catch (error) {
+    recordAppError("verify_user");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -185,6 +190,7 @@ export const loginUser = async (req, res) => {
     const createdUser = await User.findById(user._id).select(
       "-password -verificationToken"
     );
+    recordAuthEvent("login_success");
 
     return res.status(200).json({
       success: true,
@@ -192,6 +198,7 @@ export const loginUser = async (req, res) => {
       data: { user: createdUser, token },
     });
   } catch (error) {
+    recordAppError("login_user");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -238,11 +245,13 @@ export const onboarding = async (req, res) => {
     } catch (error) {
       console.log(`Error updating data into stream: ${error}`);
     }
+    recordAuthEvent("onboarding_completed");
 
     return res
       .status(200)
       .json({ success: true, message: "Onboarding completed!", data: user });
   } catch (error) {
+    recordAppError("onboarding");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -256,10 +265,12 @@ export const logoutUser = async (req, res) => {
       secure: true,
       sameSite: "None",
     });
+    recordAuthEvent("logout_success");
     return res
       .status(200)
       .json({ success: true, message: "Logout successful" });
   } catch (error) {
+    recordAppError("logout_user");
     return res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -291,12 +302,14 @@ export const forgetPassword = async (req, res) => {
     const resetLink = `${process.env.CORS_ORIGIN}/reset-password/${forgetPasswordToken}`;
 
     await ForgerPasswordLinkMail(user, resetLink); // sending reset email
+    recordAuthEvent("password_reset_requested");
 
     return res.status(200).json({
       success: true,
       message: "Password reset link sent successfully",
     });
   } catch (error) {
+    recordAppError("forget_password");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -332,11 +345,13 @@ export const resetPassword = async (req, res) => {
 
     await user.save();
     await PasswordResetSuccessMail(user); //sending success email.
+    recordAuthEvent("password_reset_success");
 
     return res
       .status(200)
       .json({ success: true, message: "Passoword Reset successfull" });
   } catch (error) {
+    recordAppError("reset_password");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -356,6 +371,7 @@ export const getUser = async (req, res) => {
         .json({ success: false, message: "User not found" });
     return res.status(200).json({ success: true, data: user });
   } catch (error) {
+    recordAppError("get_user");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -380,10 +396,12 @@ export const deleteAccount = async (req, res) => {
       secure: true,
       sameSite: "None",
     });
+    recordAuthEvent("account_deleted");
     return res
       .status(200)
       .json({ success: true, message: "Account deleted successfully" });
   } catch (error) {
+    recordAppError("delete_account");
     return res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -404,6 +422,7 @@ export const status = async (req, res) => {
       },
     });
   } catch (error) {
+    recordAppError("status");
     return res.status(500).json({ success: false, message: error.message });
   }
 };

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { User } from "../models/auth.model.js";
 import { Friend } from "../models/friend.model.js";
+import { recordAppError, recordSocialEvent } from "../monitoring/metrics.js";
 
 export const searchUsers = async (req, res) => {
   try {
@@ -44,9 +45,12 @@ export const searchUsers = async (req, res) => {
     if (countUser === 0)
       return res.status(404).json({ message: "No User Found" });
 
+    recordSocialEvent("user_search");
+
     // else return the user info.
     return res.status(200).json(filteredUsers, countUser);
   } catch (error) {
+    recordAppError("search_users");
     return res.status(500).json({
       success: false,
       message: `error searching user: ${error.message}`,
@@ -70,9 +74,12 @@ export const suggestFriends = async (req, res) => {
     if (!user || user.length === 0)
       return res.status(200).json([], { message: "No user to suggest" });
 
+    recordSocialEvent("friend_suggestions_viewed");
+
     // other than that suggest all the users.
     return res.status(200).json(user);
   } catch (error) {
+    recordAppError("suggest_friends");
     return res.status(500).json({
       success: false,
       message: `error recommending friends: ${error.message}`,
@@ -118,11 +125,14 @@ export const sendFriendReq = async (req, res) => {
 
     if (!sendRequest) throw new Error("Error sending request.");
 
+    recordSocialEvent("friend_request_sent");
+
     // friend request created ("pending" by default).
     return res
       .status(201)
       .json({ success: true, message: `Request sent`, data: sendRequest });
   } catch (error) {
+    recordAppError("send_friend_request");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -160,10 +170,13 @@ export const acceptRequest = async (req, res) => {
       $addToSet: { freinds: findRequest.sender },
     });
 
+    recordSocialEvent("friend_request_accepted");
+
     return res
       .status(200)
       .json({ message: `You and ${sender.username} are friends.` });
   } catch (error) {
+    recordAppError("accept_friend_request");
     return res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -192,6 +205,7 @@ export const getAllRequests = async (req, res) => {
       .status(200)
       .json({ notAcceptedRequest, acceptedRequest, pendingRequest });
   } catch (error) {
+    recordAppError("get_all_requests");
     return res
       .status(400)
       .json({ success: false, message: "error getAllRequest" + error.message });
@@ -211,8 +225,11 @@ export const getMyFriends = async (req, res) => {
 
     if (!myFriends) throw new Error("You currently have no friends");
 
+    recordSocialEvent("my_friends_viewed");
+
     return res.status(200).json(myFriends);
   } catch (error) {
+    recordAppError("get_my_friends");
     return res.status(400).json({ success: false, message: error.message });
   }
 };

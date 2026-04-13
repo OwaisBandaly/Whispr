@@ -1,0 +1,26 @@
+groups:
+  - name: whispr-backend
+    rules:
+      - alert: WhisprBackendDown
+        expr: up{job=~"whispr-backend-.*"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Whispr backend is not responding to Prometheus scrapes
+
+      - alert: WhisprMongoDisconnected
+        expr: auth_app_mongodb_up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: MongoDB connection is down in the backend process
+
+      - alert: WhisprHighErrorRate
+        expr: sum(rate(auth_app_errors_total[5m])) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Error rate is elevated for the backend
