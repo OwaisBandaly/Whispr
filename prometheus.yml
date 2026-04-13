@@ -16,7 +16,7 @@ scrape_configs:
     scheme: https
     metrics_path: /metrics
     authorization:
-      credentials: process.env.METRICS_TOKEN
+      credentials: hdjhfkjdhfy787enhe
     static_configs:
       - targets:
           - whispr-cpwb.onrender.com
