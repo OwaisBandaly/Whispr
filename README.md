@@ -5,6 +5,44 @@ whispr. lets you connect with friends, send and accept friend requests, chat in 
 
 ---
 
+## Monitoring
+
+The backend exposes a Prometheus-compatible `/metrics` endpoint for live monitoring.
+
+- Set `METRICS_TOKEN` in your Render backend environment to protect the endpoint in production.
+- Prometheus can authenticate with either `Authorization: Bearer <token>` or `X-Metrics-Token: <token>`.
+- Included metrics cover HTTP traffic, latency, status codes, MongoDB health, user totals, auth flows, social usage, chat token issuance, and grouped app errors.
+
+### Run Without Docker
+
+1. Download the Prometheus and Grafana binaries for your OS.
+2. Copy [monitoring/prometheus.example.yml](monitoring/prometheus.example.yml) to `prometheus.yml`.
+3. Replace `your-render-service.onrender.com` and `REPLACE_WITH_METRICS_TOKEN`.
+4. Start Prometheus:
+
+```powershell
+prometheus.exe --config.file=prometheus.yml
+```
+
+5. Start Grafana:
+
+```powershell
+grafana-server.exe
+```
+
+6. Add Prometheus as a Grafana datasource and import [monitoring/grafana-dashboard.json](monitoring/grafana-dashboard.json).
+
+### Useful Queries
+
+- Requests per second: `sum(rate(auth_app_http_requests_total[5m]))`
+- p95 latency by route: `histogram_quantile(0.95, sum by (le, route) (rate(auth_app_http_request_duration_seconds_bucket[5m])))`
+- Logins in the last hour: `increase(auth_app_auth_events_total{event="login_success"}[1h])`
+- Signups in the last hour: `increase(auth_app_auth_events_total{event="register_success"}[1h])`
+- Current verified users: `auth_app_users_verified_total`
+- Current pending requests: `auth_app_friend_requests_pending_total`
+
+---
+
 ## 🚀 Features
 
 - **Authentication:** Sign up, login, email verification, password reset (with secure email link).

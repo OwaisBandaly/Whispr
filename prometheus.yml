@@ -19,4 +19,4 @@ scrape_configs:
       credentials: process.env.METRICS_TOKEN
     static_configs:
       - targets:
-          - https://whispr-cpwb.onrender.com
+          - whispr-cpwb.onrender.com
